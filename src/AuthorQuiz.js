@@ -56,9 +56,8 @@ Turn.propTypes = {
     imageUrl: PropTypes.string.isRequired,
     imageSource: PropTypes.string.isRequired,
     books: PropTypes.arrayOf(PropTypes.string).isRequired,
-    highlight: PropTypes.string.isRequired
+    highlight: PropTypes.string
   })
-
 }
 
 function Continue(){

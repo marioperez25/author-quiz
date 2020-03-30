@@ -50,7 +50,8 @@ const authors = [
 
 const state = {
   //naming data "data" is sort of a bad practice
-  turnData: getTurnData(authors)
+  turnData: getTurnData(authors),
+  highlight: ''
 }
 
 function getTurnData(){
@@ -72,12 +73,22 @@ function getTurnData(){
   }
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <AuthorQuiz {...state}/>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function onAnswerSelected(answer) {
+  const isCorrect = state.turnData.author.books.some((book) => book === answer);
+  state.highlight = isCorrect ? 'correct' : 'wrong';
+  render();
+}
+
+function render() {
+  ReactDOM.render(
+    <React.StrictMode>
+      <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected}/>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+
+render();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

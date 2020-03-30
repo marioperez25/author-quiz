@@ -1,38 +1,26 @@
-.AuthorQuiz {
-  text-align: center;
+.turn > div {
+  height: 400px;
 }
 
-.AuthorQuiz-logo {
-  height: 40vmin;
-  pointer-events: none;
+.turn { 
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .AuthorQuiz-logo {
-    animation: AuthorQuiz-logo-spin infinite 20s linear;
-  }
+.authorimage {
+  max-height: 100%;
+  width: 100%;
 }
 
-.AuthorQuiz-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.answer {
+  background-color: #F0F7FD;
+  border-color: #D0E3F0;
+  margin-bottom: 20px;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #D0E3F0;
+  cursor: pointer;
 }
 
-.AuthorQuiz-link {
-  color: #61dafb;
-}
-
-@keyframes AuthorQuiz-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.answer:hover {
+  background-color: #D0E3F0;
 }

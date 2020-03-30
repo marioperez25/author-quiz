@@ -1,5 +1,6 @@
 //Llibraries:
 import React from 'react';
+import PropTypes from 'prop-types';
 //Components:
 import './AuthorQuiz.css';
 //Bootstrap:
@@ -49,7 +50,16 @@ function Turn({author, books, highlight, onAnswerSelected}){
   );
 }
 
+Turn.propTypes = {
+  author: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    imageSource: PropTypes.string.isRequired,
+    books: PropTypes.arrayOf(PropTypes.string).isRequired,
+    highlight: PropTypes.string.isRequired
+  })
 
+}
 
 function Continue(){
   return(

@@ -1,9 +1,11 @@
+//libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {shuffle,sample} from 'underscore'; // learn more about underscore.js
+
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
 import * as serviceWorker from './serviceWorker';
-import {shuffle,sample} from 'underscore';
 
 const authors = [
   {

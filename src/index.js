@@ -1,7 +1,8 @@
 //libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {shuffle,sample} from 'underscore'; // learn more about underscore.js
+import { BrowserRouter, Route } from 'react-router-dom';
+import { shuffle, sample } from 'underscore'; // learn more about underscore.js
 
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
@@ -79,18 +80,35 @@ function onAnswerSelected(answer) {
   render();
 }
 
+function AddAuthorForm({match}){
+  return <div>
+    <h1>Add Author</h1>
+    <p>{JSON.stringify(match)}</p>
+  </div>
+}
+
 function render() {
   ReactDOM.render(
-    <React.StrictMode>
-      <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected}/>
-    </React.StrictMode>,
+    <BrowserRouter>
+      <Route exact path="/" component={App} />
+      <Route path="/add" component={AddAuthorForm} />
+      <Route path="/added" component={AddAuthorForm} />
+    </BrowserRouter>
+    ,
     document.getElementById('root')
+  );
+}
+
+function App(){
+  return (
+    <AuthorQuiz 
+      {...state}
+      onAnswerSelected={onAnswerSelected}
+    />
   );
 }
 
 render();
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

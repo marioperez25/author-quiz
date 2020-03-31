@@ -1,11 +1,23 @@
 //Llibraries:
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 //Components:
 import './AuthorQuiz.css';
 //Bootstrap:
 import './bootstrap.min.css';
-import { Link } from 'react-router-dom';
+
+function AuthorQuiz({turnData, highlight, onAnswerSelected}) {
+  return (
+    <div className="container-fluid">
+      <Hero/>
+      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
+      <Continue/>
+      <p><Link to="/add">Add Author</Link> </p>
+      <Footer/>
+    </div>
+  );
+}
 
 function Hero(){
   return (
@@ -17,16 +29,6 @@ function Hero(){
     </div>
   );
 }
-
-function Book({title, onClick}){
-  return(
-    <div className="answer" onClick={() => {onClick(title);}}>
-      <h4>{title}</h4>
-    </div>
-  )
-}
-
-
 
 function Turn({author, books, highlight, onAnswerSelected}){
   function highlightToBgColor(highlight) {
@@ -50,7 +52,6 @@ function Turn({author, books, highlight, onAnswerSelected}){
     </div>
   );
 }
-
 Turn.propTypes = {
   author: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -59,6 +60,14 @@ Turn.propTypes = {
     books: PropTypes.arrayOf(PropTypes.string).isRequired,
     highlight: PropTypes.string
   })
+}
+
+function Book({title, onClick}){
+  return(
+    <div className="answer" onClick={() => {onClick(title);}}>
+      <h4>{title}</h4>
+    </div>
+  )
 }
 
 function Continue(){
@@ -73,18 +82,6 @@ function Footer(){
       <div className="col-12">
         <p className="text-muted credit">all images used from <a href="http://commons.wikimedia.org">Wikimedia Commons</a> and are in the public domain</p>
       </div>
-    </div>
-  );
-}
-
-function AuthorQuiz({turnData, highlight, onAnswerSelected}) {
-  return (
-    <div className="container-fluid">
-      <Hero/>
-      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
-      <Continue/>
-      <p><Link to="/add">Add Author</Link> </p>
-      <Footer/>
     </div>
   );
 }

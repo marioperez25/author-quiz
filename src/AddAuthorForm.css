@@ -1,0 +1,13 @@
+.AddAuthorForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.AddAuthorForm__input {
+    margin-bottom: 20px;
+    margin: auto;
+}
+
+.AddAuthorForm__input > label {
+    display: block;
+}

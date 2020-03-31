@@ -6,6 +6,7 @@ import { shuffle, sample } from 'underscore'; // learn more about underscore.js
 
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
+import AddAuthorForm from './AddAuthorForm';
 import * as serviceWorker from './serviceWorker';
 
 const authors = [
@@ -80,19 +81,15 @@ function onAnswerSelected(answer) {
   render();
 }
 
-function AddAuthorForm({match}){
-  return <div>
-    <h1>Add Author</h1>
-    <p>{JSON.stringify(match)}</p>
-  </div>
+function AuthorWrapper() {
+  return <AddAuthorForm onAddAuthor={console.log} />
 }
 
 function render() {
   ReactDOM.render(
     <BrowserRouter>
       <Route exact path="/" component={App} />
-      <Route path="/add" component={AddAuthorForm} />
-      <Route path="/added" component={AddAuthorForm} />
+      <Route path="/add" component={AuthorWrapper} />
     </BrowserRouter>
     ,
     document.getElementById('root')

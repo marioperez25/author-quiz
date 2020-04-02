@@ -1,7 +1,7 @@
 //libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 import { shuffle, sample } from 'underscore'; // learn more about underscore.js
 
 import './index.css';
@@ -50,11 +50,7 @@ const authors = [
   }
 ];
 
-const state = {
-  //naming data "data" is sort of a bad practice
-  turnData: getTurnData(authors),
-  highlight: ''
-}
+let state = resetState();
 
 function getTurnData(){
   const allBooks = authors.reduce(function (p, c, i){
@@ -81,15 +77,27 @@ function onAnswerSelected(answer) {
   render();
 }
 
-function AuthorWrapper() {
-  return <AddAuthorForm onAddAuthor={console.log} />
+const AddAuthorFormWrapper = withRouter(({ history }) => 
+    <AddAuthorForm onAddAuthor={
+      (author) => {
+        authors.push(author);
+        history.push('/');
+      }
+    } />
+);
+
+function resetState() {
+  return {
+    turnData: getTurnData(authors),
+    highlight: ''
+  }
 }
 
 function render() {
   ReactDOM.render(
     <BrowserRouter>
       <Route exact path="/" component={App} />
-      <Route path="/add" component={AuthorWrapper} />
+      <Route path="/add" component={AddAuthorFormWrapper} />
     </BrowserRouter>
     ,
     document.getElementById('root')
@@ -101,6 +109,13 @@ function App(){
     <AuthorQuiz 
       {...state}
       onAnswerSelected={onAnswerSelected}
+      onContinue={
+        () => {
+          state = resetState();
+          console.log(state);
+          render();
+        }
+      }
     />
   );
 }

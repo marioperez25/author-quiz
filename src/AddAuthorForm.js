@@ -7,15 +7,36 @@ class AuthorForm extends React.Component{
         this.state = {
             name: '',
             imageUrl: '',
-            books: ['book 1', 'book 2']
+            books: [],
+            bookTemp: ''
         };
         this.onFieldChange = this.onFieldChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleAddBook = this.handleAddBook.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);        
     }
 
-    handleSubmit(event) {
-        event.preventDefault(); // prevent page reload
-        this.props.onAddAuthor(this.state);
+    render() {
+        return <form onSubmit={this.handleSubmit}>
+            <div className="AddAuthorForm__input">
+                <label htmlFor="name">Name</label>
+                <input type="text" name="name" value={this.state.name} onChange={this.onFieldChange} />
+            </div>
+            <div className="AddAuthorForm__input">
+                <label htmlFor="imageUrl">Image URL</label>
+                <input type="text" name="imageUrl" value={this.state.imageUrl} onChange={this.onFieldChange} />
+            </div>
+            <div className="AddAuthorForm__input">
+                <label htmlFor="bookTemp">Books</label>
+                {this.state.books.map(
+                    (book) => <p key={book}>{book}</p>
+                )}
+                <input type="text" name="bookTemp" value={this.state.bookTemp} onChange={this.onFieldChange} />
+                <input type="button" value="+" onClick={this.handleAddBook} />
+            </div>
+            <div>
+                <input type="submit" value="Add Author" />
+            </div>
+        </form>
     }
 
     onFieldChange(event) {
@@ -24,18 +45,18 @@ class AuthorForm extends React.Component{
         });
     }
 
-    render() {
-        return <form onSubmit={this.handleSubmit}>
-            <div className="AddAuthorForm__input">
-                <label htmlFor="name">Name</label>
-                <input type="text" name="name" value={this.state.name} onChange={this.onFieldChange}/>
-                <label htmlFor="imageUrl">Image URL</label>
-                <input type="text" name="imageUrl" value={this.state.imageUrl} onChange={this.onFieldChange}/>
-                {this.state.books.map((book) => <p>{book}</p>)}
-                <input type="submit" value="Add" />
-            </div>
-        </form>
+    handleAddBook(event) {
+        this.setState({
+            books: this.state.books.concat([this.state.bookTemp]),
+            bookTemp: ''
+        })
     }
+
+    handleSubmit(event) {
+        event.preventDefault(); // prevent page reload
+        this.props.onAddAuthor(this.state);
+    }
+    
 }
 
 function AddAuthorForm({match, onAddAuthor}){

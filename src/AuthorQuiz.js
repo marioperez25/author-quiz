@@ -7,12 +7,19 @@ import './AuthorQuiz.css';
 //Bootstrap:
 import './bootstrap.min.css';
 
-function AuthorQuiz({turnData, highlight, onAnswerSelected}) {
+function AuthorQuiz({turnData, highlight, onAnswerSelected, onContinue}) {
   return (
     <div className="container-fluid">
       <Hero/>
-      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
-      <Continue/>
+      <Turn
+        {...turnData}
+        highlight={highlight}
+        onAnswerSelected={onAnswerSelected}
+      />
+      <Continue
+          show={highlight === 'correct'}
+          onContinue={onContinue}
+      />
       <p><Link to="/add">Add Author</Link> </p>
       <Footer/>
     </div>
@@ -70,9 +77,16 @@ function Book({title, onClick}){
   )
 }
 
-function Continue(){
+function Continue({ show, onContinue}){
   return(
-    <div></div>
+    <div className="row continue">
+      { show
+        ? <div>
+          <button className="btn btn-primary btn-lg float-right" onClick={onContinue}>Continue</button>
+        </div>
+        :null
+      }
+    </div>
   );
 }
 
